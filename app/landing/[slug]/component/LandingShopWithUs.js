@@ -9,22 +9,22 @@ const LandingShopWithUs = ({landing}) => {
           <div className="shop-with-us-area">
               <div className="container">
                   <div className="grid items-center lg:grid-cols-2 gap-[30px]">
-                      <div className="w-full lg:h-[600px]">
+                      {section_five_image && <div className="w-full lg:h-[600px]">
                           <Image
                               src={section_five_image}
                               alt="landing-1"
                               width={600}
                               height={600}
-                              className="w-full h-full object-cover object-center"
+                              className="object-cover object-center w-full h-full"
                           />
-                      </div>
+                      </div>}
                       <div className=" bg-white rounded-lg lg:rounded-[20px] p-[24px] lg:p-10">
-                          <div
+                          {section_five_description && <div
                               className="grid gap-[18px]"
                               dangerouslySetInnerHTML={{
                                   __html: section_five_description,
                               }}
-                          ></div>
+                          ></div>}
                           {/* <h4 className="text-[30px] text-gray-900 font-semibold mb-[18px]">
                               Why Shop With Us?
                           </h4>

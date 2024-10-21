@@ -16,7 +16,14 @@ const LatestProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const productsData = await getAllProduct(language);
+                const productsData = await getAllProduct(
+                    language,
+                    null,
+                    "new_arrival",
+                    null,
+                    null,
+                    8
+                );
                 setProducts(productsData.data);
             } catch (error) {
                 console.error('Failed to fetch products:', error);

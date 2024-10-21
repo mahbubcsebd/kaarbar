@@ -15,21 +15,21 @@ const LandingChoose = ({landing}) => {
               </p> */}
 
               <div className="grid items-center lg:grid-cols-2 gap-[30px]">
-                  <div className="w-full lg:h-[600px] overflow-hidden lg:order-last">
+                  {section_two_image && <div className="w-full lg:h-[600px] overflow-hidden lg:order-last">
                       <Image
                           src={section_two_image}
                           alt="landing-1 img"
                           width={600}
                           height={600}
-                          className="w-full h-full object-cover object-center"
+                          className="object-cover object-center w-full h-full"
                       />
-                  </div>
-                  <div
+                  </div>}
+                 {section_two_description && <div
                       className=""
                       dangerouslySetInnerHTML={{
                           __html: section_two_description,
                       }}
-                  ></div>
+                  ></div>}
                   {/* <div className="grid gap-[18px]">
                       <h4 className="text-[30px] font-semibold text-gray-900">
                           Why Choose Classic & Cool?

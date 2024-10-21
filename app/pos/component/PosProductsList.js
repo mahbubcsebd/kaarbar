@@ -135,112 +135,128 @@ const PosProductsList = () => {
         setSelectedCategory("");
     };
 
-    return (
-        <div className="pb-8">
-            <div className="px-5">
-                <div className="grid grid-cols-12 gap-[30px] ">
-                    <div className="col-span-7">
-                        <div className="mb-5">
-                            <PosSearch
-                                search={search}
-                                setSearch={setSearch}
-                            />
-                        </div>
-                        <div className="product-filter items-start flex lg:items-center gap-4 sm:gap-5 mb-[20px] bg-white rounded py-[6px] px-3">
-                            <ul className="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-[18px]">
-                                <li>
-                                    <button
-                                        onClick={handleAllFilter}
-                                        type="button"
-                                        className={`px-4 py-3 text-sm font-normal text-gray-700 rounded-md hover:bg-[#E7ECF2] hover:text-purple-900 transition duration-150 ${
-                                            selectedCategory === ''
-                                                ? 'bg-[#E7ECF2] text-purple-900'
-                                                : ''
-                                        }`}
-                                    >
-                                        {dictionary.Global.all}
-                                    </button>
-                                </li>
-                                {categories.map((category) => (
-                                    <li key={category.id}>
+    if (!token) {
+        return (
+            <div className="">
+                <div className="container">
+                    <div className="min-h-[calc(100vh-120px)] flex items-center justify-center bg-white rounded-[16px]">
+                        <p className="text-3xl font-semibold text-gray-500">
+                            You are not authorized. Please Login
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+        return (
+            <div className="pb-8">
+                <div className="px-5">
+                    <div className="grid grid-cols-12 gap-[30px] ">
+                        <div className="col-span-7">
+                            <div className="mb-5">
+                                <PosSearch
+                                    search={search}
+                                    setSearch={setSearch}
+                                />
+                            </div>
+                            <div className="product-filter items-start flex lg:items-center gap-4 sm:gap-5 mb-[20px] bg-white rounded py-[6px] px-3">
+                                <ul className="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-[18px]">
+                                    <li>
                                         <button
-                                            onClick={() =>
-                                                handleCategory(category.id)
-                                            }
+                                            onClick={handleAllFilter}
                                             type="button"
                                             className={`px-4 py-3 text-sm font-normal text-gray-700 rounded-md hover:bg-[#E7ECF2] hover:text-purple-900 transition duration-150 ${
-                                                selectedCategory == category.id
+                                                selectedCategory === ''
                                                     ? 'bg-[#E7ECF2] text-purple-900'
                                                     : ''
                                             }`}
                                         >
-                                            {category.name}
+                                            {dictionary.Global.all}
                                         </button>
                                     </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <Suspense fallback={<h2>Loading...</h2>}>
-                            {loading && !isSeeMoreClick ? (
-                                <div className="grid grid-cols-2 gap-4 product-list sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                    <PosSkeletonCard />
-                                    <PosSkeletonCard />
-                                    <PosSkeletonCard />
-                                    <PosSkeletonCard />
-                                </div>
-                            ) : memoizedProductsArray.length > 0 ? (
-                                <div className="grid grid-cols-2 gap-3 product-list sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                    {memoizedProductsArray.map((product, index) => (
-                                        <PosProductCard
-                                            key={index}
-                                            product={product}
-                                        />
+                                    {categories.map((category) => (
+                                        <li key={category.id}>
+                                            <button
+                                                onClick={() =>
+                                                    handleCategory(category.id)
+                                                }
+                                                type="button"
+                                                className={`px-4 py-3 text-sm font-normal text-gray-700 rounded-md hover:bg-[#E7ECF2] hover:text-purple-900 transition duration-150 ${
+                                                    selectedCategory ==
+                                                    category.id
+                                                        ? 'bg-[#E7ECF2] text-purple-900'
+                                                        : ''
+                                                }`}
+                                            >
+                                                {category.name}
+                                            </button>
+                                        </li>
                                     ))}
-                                </div>
-                            ) : (
-                                <div className="flex justify-center pt-10 text-gray-600">
-                                    {memoizedProductsArray.length < 1 &&
-                                        !loading && (
-                                            <h2 className="text-2xl font-normal">
-                                                Product not found
-                                            </h2>
+                                </ul>
+                            </div>
+                            <Suspense fallback={<h2>Loading...</h2>}>
+                                {loading && !isSeeMoreClick ? (
+                                    <div className="grid grid-cols-2 gap-4 product-list sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                        <PosSkeletonCard />
+                                        <PosSkeletonCard />
+                                        <PosSkeletonCard />
+                                        <PosSkeletonCard />
+                                    </div>
+                                ) : memoizedProductsArray.length > 0 ? (
+                                    <div className="grid grid-cols-2 gap-3 product-list sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                        {memoizedProductsArray.map(
+                                            (product, index) => (
+                                                <PosProductCard
+                                                    key={index}
+                                                    product={product}
+                                                />
+                                            )
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div className="flex justify-center pt-10 text-gray-600">
+                                        {memoizedProductsArray.length < 1 &&
+                                            !loading && (
+                                                <h2 className="text-2xl font-normal">
+                                                    Product not found
+                                                </h2>
+                                            )}
+                                    </div>
+                                )}
+                                {/* Loader element for infinite scroll */}
+                                <div
+                                    ref={loaderRef}
+                                    className="flex justify-center mt-40"
+                                >
+                                    {loading &&
+                                        productItem.length < totalProduct && (
+                                            <div className="loader"></div>
                                         )}
                                 </div>
-                            )}
-                            {/* Loader element for infinite scroll */}
-                            <div
-                                ref={loaderRef}
-                                className="flex justify-center mt-40"
-                            >
-                                {loading &&
-                                    productItem.length < totalProduct && (
-                                        <div className="loader"></div>
-                                    )}
-                            </div>
-                        </Suspense>
-                    </div>
-                    <div className="col-span-5">
-                        <div className="bg-white rounded-xl p-[18px]">
-                            <div className="mb-8">
-                                <CustomerList
+                            </Suspense>
+                        </div>
+                        <div className="col-span-5">
+                            <div className="bg-white rounded-xl p-[18px]">
+                                <div className="mb-8">
+                                    <CustomerList
+                                        customervalue={customervalue}
+                                        setCustomerValue={setCustomerValue}
+                                        warehousevalue={warehousevalue}
+                                        setWarehouseValue={setWarehouseValue}
+                                    />
+                                </div>
+                                <BillTable
                                     customervalue={customervalue}
                                     setCustomerValue={setCustomerValue}
                                     warehousevalue={warehousevalue}
                                     setWarehouseValue={setWarehouseValue}
                                 />
                             </div>
-                            <BillTable
-                                customervalue={customervalue}
-                                setCustomerValue={setCustomerValue}
-                                warehousevalue={warehousevalue}
-                                setWarehouseValue={setWarehouseValue}
-                            />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
 };
 
 export default PosProductsList;

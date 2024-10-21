@@ -25,6 +25,14 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'demoadmin.karbar.shop',
+            },
+            {
+                protocol: 'https',
+                hostname: process.env.APP_HOSTNAME || 'localhost', // This should now work
+            },
+            {
+                protocol: 'https',
                 hostname: 'img.freepik.com',
             },
             {

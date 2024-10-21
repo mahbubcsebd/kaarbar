@@ -67,7 +67,7 @@ const LandingPage = async ({params : {slug}}) => {
                     section_four_available_size,
                 }}
             />
-            {testimonials.data.length > 0 && (
+            {testimonials.data.length > 3 && (
                 <div className="landing-testimonial bg-[#F4EBFF] pt-10 pb-3 lg:pt-20 lg:pb-14 mb-[30px] lg:mb-[60px]">
                     <Testimonials testimonials={testimonials.data} />
                 </div>

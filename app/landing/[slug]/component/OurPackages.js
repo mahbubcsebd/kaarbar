@@ -129,192 +129,204 @@ const handleChange = (key, productId, value) => {
     //     console.log('Selected Values:', selectedValues);
     // }, [selectedProducts, selectedValues]);
 
-    return (
-        <div
-            id="our-package-section"
-            className="our-package-section"
-        >
-            <div className="container">
-                <div className="our-package-area bg-white lg:rounded-[20px] p-4 rounded-lg lg:p-10 ">
-                    <h4 className="text-2xl lg:text-[30px] text-gray-900 font-semibold mb-[18px] text-center">
-                        Our Package
-                    </h4>
-                    <ul className="grid lg:grid-cols-2 gap-[30px]">
-                        {products.map((product) => (
-                            <li key={product.id}>
-                                <label
-                                    htmlFor={product.id}
-                                    className="flex items-center gap-2 md:gap-[18px] p-3 md:py-5 md:px-[30px] w-full bg-[#F1F1F1] border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 cursor-pointer"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        id={product.id}
-                                        name="product"
-                                        value={product.id}
-                                        // checked={selectedProducts.some(
-                                        //     (selected) =>
-                                        //         selected.id === product.id
-                                        // )}
-                                        checked={isInCart(product.id)}
-                                        onChange={() =>
-                                            handleProductSelect(product)
-                                        }
-                                        className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none form-checkbox h-5 w-5"
-                                        disabled={
-                                            !isProductSelectable(product.id)
-                                        }
-                                    />
-                                    <div
-                                        className={`flex items-start gap-[14px]`}
+    // if (!products) {
+    //     return (
+    //         <div>
+    //             <p>Products is empty</p>
+    //         </div>
+    //     )
+    // }
+        return (
+            <div
+                id="our-package-section"
+                className="our-package-section"
+            >
+                <div className="container">
+                    <div className="our-package-area bg-white lg:rounded-[20px] p-4 rounded-lg lg:p-10 ">
+                        <h4 className="text-2xl lg:text-[30px] text-gray-900 font-semibold mb-[18px] text-center">
+                            Our Package
+                        </h4>
+                        <ul className="grid lg:grid-cols-2 gap-[30px]">
+                            {products.map((product) => (
+                                <li key={product.id}>
+                                    <label
+                                        htmlFor={product.id}
+                                        className="flex items-center gap-2 md:gap-[18px] p-3 md:py-5 md:px-[30px] w-full bg-[#F1F1F1] border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 cursor-pointer"
                                     >
-                                        <div>
-                                            <div className="w-[90px] h-[104px] sm:w-[95px] sm:h-[112px] md:w-[110px] md:h-[118px] lg:w-[84px] lg:h-[90px] xl:w-[100px] xl:h-[100px] rounded-lg overflow-hidden">
-                                                <Image
-                                                    className="object-cover w-full h-full"
-                                                    src={product.preview_image}
-                                                    alt={product.name}
-                                                    width={100}
-                                                    height={100}
-                                                />
+                                        <input
+                                            type="checkbox"
+                                            id={product.id}
+                                            name="product"
+                                            value={product.id}
+                                            // checked={selectedProducts.some(
+                                            //     (selected) =>
+                                            //         selected.id === product.id
+                                            // )}
+                                            checked={isInCart(product.id)}
+                                            onChange={() =>
+                                                handleProductSelect(product)
+                                            }
+                                            className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none form-checkbox h-5 w-5"
+                                            disabled={
+                                                !isProductSelectable(product.id)
+                                            }
+                                        />
+                                        <div
+                                            className={`flex items-start gap-[14px]`}
+                                        >
+                                            <div>
+                                                <div className="w-[90px] h-[104px] sm:w-[95px] sm:h-[112px] md:w-[110px] md:h-[118px] lg:w-[84px] lg:h-[90px] xl:w-[100px] xl:h-[100px] rounded-lg overflow-hidden">
+                                                    <Image
+                                                        className="object-cover w-full h-full"
+                                                        src={
+                                                            product.preview_image
+                                                        }
+                                                        alt={product.name}
+                                                        width={100}
+                                                        height={100}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex-auto">
-                                            <div className="flex justify-between gap-2 mb-[10px]">
-                                                <h2
-                                                    className="text-sm sm:text-base lg:text-[20px] text-gray-800 font-semibold ellipsis-2 h-10 sm:h-12 md:h-[54px]"
-                                                    title={product.name}
-                                                >
-                                                    {product.name}
-                                                </h2>
-                                            </div>
-                                            <div className="flex items-center gap-6 mb-2">
-                                                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-                                                    {product.variants.map(
-                                                        (
-                                                            variant,
-                                                            variantIndex
-                                                        ) => {
-                                                            const key =
-                                                                Object.keys(
-                                                                    variant
-                                                                )[0];
-                                                            const values =
-                                                                variant[key];
+                                            <div className="flex-auto">
+                                                <div className="flex justify-between gap-2 mb-[10px]">
+                                                    <h2
+                                                        className="text-sm sm:text-base lg:text-[20px] text-gray-800 font-semibold ellipsis-2 h-10 sm:h-12 md:h-[54px]"
+                                                        title={product.name}
+                                                    >
+                                                        {product.name}
+                                                    </h2>
+                                                </div>
+                                                <div className="flex items-center gap-6 mb-2">
+                                                    <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
+                                                        {product.variants.map(
+                                                            (
+                                                                variant,
+                                                                variantIndex
+                                                            ) => {
+                                                                const key =
+                                                                    Object.keys(
+                                                                        variant
+                                                                    )[0];
+                                                                const values =
+                                                                    variant[
+                                                                        key
+                                                                    ];
 
-                                                            return (
-                                                                <div
-                                                                    key={
-                                                                        variantIndex
-                                                                    }
-                                                                    className="flex items-center gap-2"
-                                                                >
-                                                                    <div>
-                                                                        <p className="text-[10px] font-semibold text-gray-700 capitalize">
-                                                                            {
-                                                                                key
-                                                                            }
-                                                                            :
-                                                                        </p>
-                                                                    </div>
-                                                                    <ul className="flex items-center gap-[6px] flex-wrap">
-                                                                        {values.map(
-                                                                            (
-                                                                                value,
-                                                                                index
-                                                                            ) => (
-                                                                                <li
-                                                                                    key={
-                                                                                        index
-                                                                                    }
-                                                                                >
-                                                                                    <input
-                                                                                        type="radio"
-                                                                                        name={`${key}-${product.id}`}
-                                                                                        id={`${key}-${value}-${product.id}`}
-                                                                                        value={
-                                                                                            value
+                                                                return (
+                                                                    <div
+                                                                        key={
+                                                                            variantIndex
+                                                                        }
+                                                                        className="flex items-center gap-2"
+                                                                    >
+                                                                        <div>
+                                                                            <p className="text-[10px] font-semibold text-gray-700 capitalize">
+                                                                                {
+                                                                                    key
+                                                                                }
+
+                                                                                :
+                                                                            </p>
+                                                                        </div>
+                                                                        <ul className="flex items-center gap-[6px] flex-wrap">
+                                                                            {values.map(
+                                                                                (
+                                                                                    value,
+                                                                                    index
+                                                                                ) => (
+                                                                                    <li
+                                                                                        key={
+                                                                                            index
                                                                                         }
-                                                                                        className="hidden"
-                                                                                        checked={
-                                                                                            selectedValues[
-                                                                                                product
-                                                                                                    .id
-                                                                                            ]?.[
-                                                                                                key
-                                                                                            ] ===
-                                                                                            value
-                                                                                        }
-                                                                                        onChange={() =>
-                                                                                            handleChange(
-                                                                                                key,
-                                                                                                product.id,
-                                                                                                value
-                                                                                            )
-                                                                                        }
-                                                                                    />
-                                                                                    {key.toLowerCase() ===
-                                                                                    'color' ? (
-                                                                                        <label
-                                                                                            htmlFor={`${key}-${value}-${product.id}`}
-                                                                                            className={`cursor-pointer rounded-full p-[2px] flex items-center justify-center shadow-lg border ${
-                                                                                                selectedValues[
-                                                                                                    product
-                                                                                                        .id
-                                                                                                ]?.[
-                                                                                                    key
-                                                                                                ] ===
-                                                                                                value
-                                                                                                    ? 'border-red-500'
-                                                                                                    : 'border-gray-500'
-                                                                                            }`}
-                                                                                        >
-                                                                                            <div
-                                                                                                style={{
-                                                                                                    backgroundColor: `#${value}`,
-                                                                                                }}
-                                                                                                className={`w-5 h-5 rounded-full`}
-                                                                                            ></div>
-                                                                                        </label>
-                                                                                    ) : (
-                                                                                        <label
-                                                                                            htmlFor={`${key}-${value}-${product.id}`}
-                                                                                            className={`px-[10px] py-1 text-[9px] font-medium rounded block cursor-pointer border border-gray-600 ${
-                                                                                                selectedValues[
-                                                                                                    product
-                                                                                                        .id
-                                                                                                ]?.[
-                                                                                                    key
-                                                                                                ] ===
-                                                                                                value
-                                                                                                    ? 'bg-gray-600 text-white'
-                                                                                                    : 'text-gray-600 hover:text-white hover:bg-gray-700'
-                                                                                            }`}
-                                                                                        >
-                                                                                            {
+                                                                                    >
+                                                                                        <input
+                                                                                            type="radio"
+                                                                                            name={`${key}-${product.id}`}
+                                                                                            id={`${key}-${value}-${product.id}`}
+                                                                                            value={
                                                                                                 value
                                                                                             }
-                                                                                        </label>
-                                                                                    )}
-                                                                                </li>
-                                                                            )
-                                                                        )}
-                                                                    </ul>
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )}
+                                                                                            className="hidden"
+                                                                                            checked={
+                                                                                                selectedValues[
+                                                                                                    product
+                                                                                                        .id
+                                                                                                ]?.[
+                                                                                                    key
+                                                                                                ] ===
+                                                                                                value
+                                                                                            }
+                                                                                            onChange={() =>
+                                                                                                handleChange(
+                                                                                                    key,
+                                                                                                    product.id,
+                                                                                                    value
+                                                                                                )
+                                                                                            }
+                                                                                        />
+                                                                                        {key.toLowerCase() ===
+                                                                                        'color' ? (
+                                                                                            <label
+                                                                                                htmlFor={`${key}-${value}-${product.id}`}
+                                                                                                className={`cursor-pointer rounded-full p-[2px] flex items-center justify-center shadow-lg border ${
+                                                                                                    selectedValues[
+                                                                                                        product
+                                                                                                            .id
+                                                                                                    ]?.[
+                                                                                                        key
+                                                                                                    ] ===
+                                                                                                    value
+                                                                                                        ? 'border-red-500'
+                                                                                                        : 'border-gray-500'
+                                                                                                }`}
+                                                                                            >
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        backgroundColor: `#${value}`,
+                                                                                                    }}
+                                                                                                    className={`w-5 h-5 rounded-full`}
+                                                                                                ></div>
+                                                                                            </label>
+                                                                                        ) : (
+                                                                                            <label
+                                                                                                htmlFor={`${key}-${value}-${product.id}`}
+                                                                                                className={`px-[10px] py-1 text-[9px] font-medium rounded block cursor-pointer border border-gray-600 ${
+                                                                                                    selectedValues[
+                                                                                                        product
+                                                                                                            .id
+                                                                                                    ]?.[
+                                                                                                        key
+                                                                                                    ] ===
+                                                                                                    value
+                                                                                                        ? 'bg-gray-600 text-white'
+                                                                                                        : 'text-gray-600 hover:text-white hover:bg-gray-700'
+                                                                                                }`}
+                                                                                            >
+                                                                                                {
+                                                                                                    value
+                                                                                                }
+                                                                                            </label>
+                                                                                        )}
+                                                                                    </li>
+                                                                                )
+                                                                            )}
+                                                                        </ul>
+                                                                    </div>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </label>
-                            </li>
-                        ))}
-                    </ul>
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
 };
 
 export default OurPackages;

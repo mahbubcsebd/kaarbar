@@ -8,7 +8,8 @@ REMOTE_DIR="/var/www/demo.karbar.shop"
 
 # Define the new port and api Url
 NEW_PORT="5000"
-NEW_API_URL="https://admin.karbar.shop/api"
+APP_HOSTNAME="https://demoadmin.karbar.shop"
+NEW_API_URL=$APP_HOSTNAME"/api"
 
 # Update the package.json file with new port using jq
 echo "Updating package.json with new port..."
@@ -25,6 +26,7 @@ cat package.json
 
 # Update .env with new API base URL
 echo "Updating .env with new API base URL..."
+sed -i "s|^APP_HOSTNAME.*|APP_HOSTNAME=$APP_HOSTNAME|" .env
 sed -i "s|^NEXT_PUBLIC_API_BASE_URL=.*|NEXT_PUBLIC_API_BASE_URL=$NEW_API_URL|" .env
 
 # Confirm the changes

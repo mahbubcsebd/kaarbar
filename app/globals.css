@@ -235,7 +235,7 @@ button:focus-visible {
 
 @media screen and (max-width: 1560px) {
     .table-h-1 {
-        min-width: 322px;
+        min-width: 320px;
     }
 }
 @media screen and (min-width: 1600px) {
