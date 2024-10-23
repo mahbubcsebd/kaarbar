@@ -55,7 +55,7 @@ const ProductCardThree = ({ product }) => {
     return (
         <div
             ref={productCardRef}
-            className="h-full overflow-hidden product-card"
+            className="h-full overflow-hidden product-card group rounded-lg bg-[#FAEDFE] border border-[rgba(0, 0, 0, 0.30)]"
         >
             <Link
                 href={`/products/${slug}`}
@@ -68,10 +68,15 @@ const ProductCardThree = ({ product }) => {
                     height={320}
                     className="object-cover w-full h-full"
                 />
-                <div className="absolute bottom-0 flex items-center w-full gap-2 px-5 -translate-x-1/2 left-1/2">
+                <div
+                    className={`absolute top-3 left-3 px-[14px] py-[10px] rounded-full text-[10px] bg-white shadow-md`}
+                >
+                    <p className="text-[#484848]">20% Off</p>
+                </div>
+                <div className="absolute -bottom-[60px] flex items-center w-full gap-2 px-5 -translate-x-1/2 left-1/2 group-hover:bottom-5 transition-all duration-300">
                     <Link
                         href={`/products/${slug}`}
-                        className="w-full block text-center py-[10px] px-5 md:py-4 text-[10px] sm:text-base md:text-xs lg:text-base font-normal text-white bg-[#4C20CD] rounded-[4px] product-button"
+                        className="w-full block text-center py-[10px] px-5 md:py-4 text-[10px] sm:text-base md:text-xs lg:text-base font-normal text-white bg-[#4C20CD] rounded-full product-button"
                     >
                         {seeDetails}
                     </Link>

@@ -11,20 +11,29 @@ import 'swiper/css/pagination';
 import './hero.css';
 
 // import required modules
+import latestbg from '@/assets/images/latest-bg.svg';
+import Image from 'next/image';
 import { Autoplay, Pagination, Thumbs } from 'swiper/modules';
 import useDictionary from '../hooks/useDictionary';
 import SectionTitle from './SectionTitle';
 import TestimonialCard from './TestimonialCard';
 
-const Testimonials = ({ testimonials }) => {
+const Testimonials = ({ testimonials, bg }) => {
     const {dictionary} = useDictionary();
 
-    if (testimonials.length < 1) {
+    if (testimonials.length < 3) {
         return null
     }
         return (
-            <div className="mb-10 review-section">
-                <div className="review-area">
+            <div className={`${bg ? '' : 'mb-10'} review-section`}>
+                <div className={`relative review-area ${bg ? 'py-16' : ''}`}>
+                    {bg && (
+                        <Image
+                            src={latestbg}
+                            alt="bg"
+                            className="absolute top-0 left-0 z-[-1] w-full h-full object-cover object-center"
+                        />
+                    )}
                     <div className="container">
                         <SectionTitle
                             title={dictionary.Testimonial.testimonialTitle}

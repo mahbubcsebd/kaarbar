@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
+import latestbg from "@/assets/images/latest-bg.svg";
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useDictionary from '../hooks/useDictionary';
@@ -18,11 +20,11 @@ const LatestProductThree = () => {
             try {
                 const productsData = await getAllProduct(
                     language,
-                    null,
+                    "all",
                     'new_arrival',
-                    null,
-                    null,
-                    8
+                    "",
+                    1,
+                    4
                 );
                 setProducts(productsData.data);
             } catch (error) {
@@ -36,9 +38,14 @@ const LatestProductThree = () => {
     return (
         <div
             id="product-section"
-            className="mb-10 product-section"
+            className="product-section"
         >
-            <div className="product-area">
+            <div className="relative pt-10 pb-20 product-area">
+                <Image
+                    src={latestbg}
+                    alt="bg"
+                    className="absolute top-0 left-0 z-[-1] w-full h-full object-cover object-center"
+                />
                 <div className="container">
                     <SectionTitle title={sectionTitle} />
                     {products.length > 0 ? (
@@ -58,7 +65,7 @@ const LatestProductThree = () => {
                     <div className="flex justify-center pt-10 md:pt-[70px]">
                         <Link
                             href="/collections/all"
-                            className="text-base md:text-[20px] text-purple-900 font-normal border md:border-2 border-purple-900 px-6 py-[10px] md:px-[30px] md:py-4 hover:bg-purple-900 hover:text-white transition duration-150 rounded-full"
+                            className="text-base md:text-[20px] text-white font-normal px-6 py-[10px] md:px-[30px] md:py-4 transition duration-150 rounded-full bg-[linear-gradient(87deg,_#D14BF8_-6.96%,_#4C20CD_115.83%)]"
                         >
                             {seeMore}
                         </Link>

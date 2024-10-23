@@ -185,26 +185,26 @@ const BillTable = ({
         setSelectedMethod(method);
     };
 
-    const handleRemoveFromCart = (name) => {
+    const handleRemoveFromCart = (barcode) => {
         dispatch({
             type: 'REMOVE_FROM_CART',
-            payload: name,
+            payload: barcode,
         });
         const product = posCartItems.find(
-            (item) => item.product_name_with_attr === name
+            (item) => item.barcode_or_sku_code === barcode
         );
     };
 
-    const handleIncrement = (name) => {
+    const handleIncrement = (barcode) => {
         dispatch({
             type: 'INCREMENT_QUANTITY',
-            payload: name,
+            payload: barcode,
         });
     };
-    const handleDecrement = (name) => {
+    const handleDecrement = (barcode) => {
         dispatch({
             type: 'DECREMENT_QUANTITY',
-            payload: name,
+            payload: barcode,
         });
     };
 
@@ -373,7 +373,8 @@ const BillTable = ({
             customer_id: customervalue,
             warehouse_id: warehousevalue,
             sub_total: subTotal,
-            vat: totalVat,
+            vat_amount: totalVat,
+            vat: vatPercent,
             discount_amount: discount,
             total_quantity: totalItems,
             total_amount: grandTotal,
@@ -468,9 +469,7 @@ const BillTable = ({
                             </TableHeader>
                             <TableBody>
                                 {posCartItems.map((product) => (
-                                    <TableRow
-                                        key={product.product_name_with_attr}
-                                    >
+                                    <TableRow key={product.barcode_or_sku_code}>
                                         <TableCell className="text-xs text-gray-700 font-medium py-[14px] ellipsis-2">
                                             {product.product_name_with_attr}
                                         </TableCell>
@@ -480,7 +479,7 @@ const BillTable = ({
                                                     type="button"
                                                     onClick={() =>
                                                         handleDecrement(
-                                                            product.product_name_with_attr
+                                                            product.barcode_or_sku_code
                                                         )
                                                     }
                                                     className="flex items-center justify-center w-4 h-4 text-xs text-gray-600 bg-white rounded-[2px] quantity-decrement"
@@ -494,7 +493,7 @@ const BillTable = ({
                                                     type="button"
                                                     onClick={() =>
                                                         handleIncrement(
-                                                            product.product_name_with_attr
+                                                            product.barcode_or_sku_code
                                                         )
                                                     }
                                                     className="flex items-center justify-center w-4 h-4 text-xs text-gray-600 bg-white rounded-[2px] quantity-increment"
@@ -520,7 +519,7 @@ const BillTable = ({
                                             <button
                                                 onClick={() =>
                                                     handleRemoveFromCart(
-                                                        product.product_name_with_attr
+                                                        product.barcode_or_sku_code
                                                     )
                                                 }
                                                 className="w-5 h-5 bg-[#EDE9FA] rounded-[2px] flex justify-center items-center"

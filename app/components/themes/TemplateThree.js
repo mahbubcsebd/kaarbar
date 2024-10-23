@@ -2,9 +2,9 @@ import { getHeroImage } from '../../utils/getHeroImage';
 import { getTestimonials } from '../../utils/getTestimonial';
 import Categories from '../Categories';
 import HeroSlider from '../HeroSlider';
-import HomeCategories from '../HomeCategories';
 import LatestProductThree from '../LatestProductThree';
-import RecentlyViewed from '../RecentlyViewed';
+import ProductListThree from '../ProductListThree';
+import RecentlyViewedThree from '../RecentlyViewedThree';
 import Testimonials from '../Testimonials';
 import Accordion from '../accordion/Accordion';
 
@@ -16,10 +16,13 @@ const DaaribHomePage = async () => {
             <Categories />
             <HeroSlider images={heroImages.data} />
             <LatestProductThree />
-            <HomeCategories />
-            <Accordion />
-            <Testimonials testimonials={testimonials.data} />
-            <RecentlyViewed />
+            <ProductListThree />
+            <Accordion bg={true} />
+            <Testimonials
+                testimonials={testimonials.data}
+                bg={true}
+            />
+            <RecentlyViewedThree />
         </>
     );
 };

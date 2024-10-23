@@ -31,12 +31,12 @@ const posCartReducer = (state, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             const itemInCart = state.posCartItems.find(
-                (item) => item.product_name_with_attr === action.payload.product_name_with_attr
+                (item) => item.barcode_or_sku_code === action.payload.barcode_or_sku_code
             );
             let updatedCartItems;
             if (itemInCart) {
                 updatedCartItems = state.posCartItems.map((item) =>
-                    item.product_name_with_attr === action.payload.product_name_with_attr
+                    item.barcode_or_sku_code === action.payload.barcode_or_sku_code
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
@@ -55,7 +55,7 @@ const posCartReducer = (state, action) => {
             };
         case REMOVE_FROM_CART:
             const remainingItems = state.posCartItems.filter(
-                (x) => x.product_name_with_attr !== action.payload
+                (x) => x.barcode_or_sku_code !== action.payload
             );
             saveToLocalStorage(JSON.stringify(remainingItems));
             //  saveToLocalStorage(remainingItems);
@@ -66,7 +66,7 @@ const posCartReducer = (state, action) => {
             };
         case INCREMENT_QUANTITY:
             const incrementedItems = state.posCartItems.map((x) =>
-                x.product_name_with_attr === action.payload ? { ...x, quantity: x.quantity + 1 } : x
+                x.barcode_or_sku_code === action.payload ? { ...x, quantity: x.quantity + 1 } : x
             );
             saveToLocalStorage(JSON.stringify(incrementedItems));
             return {
@@ -77,7 +77,7 @@ const posCartReducer = (state, action) => {
             };
         case DECREMENT_QUANTITY:
             const decrementedItems = state.posCartItems.map((item) => {
-                if (item.product_name_with_attr === action.payload) {
+                if (item.barcode_or_sku_code === action.payload) {
                     return {
                         ...item,
                         quantity: Math.max(item.quantity - 1, 1),

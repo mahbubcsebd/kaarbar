@@ -66,6 +66,7 @@ const Footer = () => {
         >
             <Image
                 className="absolute bottom-0 left-0 w-full"
+                priority
                 src={footerBg}
                 alt="footer-bg z-[10]"
             />

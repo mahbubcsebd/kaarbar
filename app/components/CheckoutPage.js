@@ -570,7 +570,7 @@ const CheckoutPage = ({ siteSettings, paymentMethod }) => {
                                                                                                 className=""
                                                                                             >
                                                                                                 <div
-                                                                                                    className="w-4 h-4 rounded-full shadow-lg"
+                                                                                                    className="w-4 h-4 rounded-full shadow-lg border border-gray-600 p-[2px]"
                                                                                                     style={{
                                                                                                         backgroundColor: `#${value}`,
                                                                                                     }}

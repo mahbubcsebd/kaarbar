@@ -18,10 +18,10 @@ const LatestProduct = () => {
             try {
                 const productsData = await getAllProduct(
                     language,
-                    null,
-                    "new_arrival",
-                    null,
-                    null,
+                    'all',
+                    'new_arrival',
+                    '',
+                    1,
                     8
                 );
                 setProducts(productsData.data);
@@ -36,7 +36,7 @@ const LatestProduct = () => {
     return (
         <div
             id="product-section"
-            className="mb-10 product-section"
+            className="mb-10 product-section  pt-[30px] lg:pt-10"
         >
             <div className="product-area">
                 <div className="container">

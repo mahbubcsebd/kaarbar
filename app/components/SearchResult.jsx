@@ -33,7 +33,7 @@ const SearchResult = ({ search, closeSearchResults }) => {
             try {
                 const productsData = await getAllProduct(
                     language,
-                    null,
+                    "all",
                     null,
                     debouncedSearch
                 );

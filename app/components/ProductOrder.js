@@ -54,23 +54,25 @@ const ProductOrder = ({ product, dictionary }) => {
         setRequiredMsg(false);
         setIncrementDisable(false);
 
-        let newAttributes = '';
-
-        // URL-encode the value to ensure it's safe for API requests
+        // Dynamically construct attributes based on variantIndex
+        let newAttributes = attributes;
         const encodedValue = encodeURIComponent(value);
 
-        // Handle attribute_one (usually color if variantIndex is 0)
-        if (variantIndex === 0) {
-            newAttributes = `attribute_one=${encodedValue}`;
-        }
+        // Define the attribute key based on the index (e.g., attribute_one, attribute_two, etc.)
+        const attributeKey = `attribute_${variantIndex + 1}`;
 
-        // Handle attribute_two (for other options if variantIndex is 1)
-        if (variantIndex === 1) {
-            if (attributes) {
-                newAttributes = `${attributes}&attribute_two=${encodedValue}`;
-            } else {
-                newAttributes = `attribute_two=${encodedValue}`;
-            }
+        // Check if the attribute already exists in the string and update its value
+        if (newAttributes.includes(attributeKey)) {
+            // Update the existing attribute with the new value
+            newAttributes = newAttributes.replace(
+                new RegExp(`${attributeKey}=[^&]+`),
+                `${attributeKey}=${encodedValue}`
+            );
+        } else {
+            // Append the new attribute to the attributes string
+            newAttributes = newAttributes
+                ? `${newAttributes}&${attributeKey}=${encodedValue}`
+                : `${attributeKey}=${encodedValue}`;
         }
 
         setAttributes(newAttributes);
@@ -84,6 +86,7 @@ const ProductOrder = ({ product, dictionary }) => {
         let productStock = await getProductStock(id, newAttributes);
         setProductStock(productStock.stock);
     };
+
 
 
     useEffect(() => {

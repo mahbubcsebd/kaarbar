@@ -103,9 +103,24 @@ const HeaderCart = ({dictionary}) => {
                                             </div>
                                         </div>
                                         <div className="w-full">
-                                            <h2 className="mb-2 text-sm font-medium text-gray-900 ellipsis-2 lg:text-lg lg:mb-3">
-                                                {product.name}
-                                            </h2>
+                                            <div className="flex items-start justify-between">
+                                                <h2 className="mb-2 text-sm font-medium text-gray-900 ellipsis-2 lg:text-lg lg:mb-3">
+                                                    {product.name}
+                                                </h2>
+                                                <div className='pt-1'>
+                                                    <button
+                                                        onClick={() =>
+                                                            handleRemoveFromCart(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        type="button"
+                                                        className="text-2xl text-gray-400"
+                                                    >
+                                                        <RxCrossCircled />
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2">
                                                     <p>{product.quantity}</p>
@@ -118,17 +133,6 @@ const HeaderCart = ({dictionary}) => {
                                                             : product.unit_price}
                                                     </p>
                                                 </div>
-                                                <button
-                                                    onClick={() =>
-                                                        handleRemoveFromCart(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    type="button"
-                                                    className="text-2xl text-gray-400"
-                                                >
-                                                    <RxCrossCircled />
-                                                </button>
                                             </div>
                                         </div>
                                     </div>

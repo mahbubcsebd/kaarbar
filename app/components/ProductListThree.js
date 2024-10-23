@@ -2,18 +2,19 @@
 // import products from "@/app/data/products.json";
 'use client';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { IoOptions } from 'react-icons/io5';
-import useDictionary from '../../../hooks/useDictionary';
+import useDictionary from '../hooks/useDictionary';
 // import { getAllProduct } from './../utils/getProduct';
-import { getAllProduct } from '../../../utils/getProduct';
+import { getAllProduct } from '../utils/getProduct';
 // import ProductCard from './ProductCard';
 // import { getAllCategories } from '../../../utils/categories';
+import ourProductsbg from '@/assets/images/our-products-bg.svg';
+import Image from 'next/image';
 import Link from 'next/link';
-import { getAllCategories } from '../../../utils/categories';
-import AbayaProductCard from '../../AbayaProductCard';
-import SkeletonCard from '../../skeleton/SkeletonCard';
+import { getAllCategories } from '../utils/categories';
+import ProductCardThree from './ProductCardThree';
+import SkeletonCard from './skeleton/SkeletonCard';
 
-const AbayaAllProducts = () => {
+const ProductListThree = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [showProduct, setShowProduct] = useState(12);
     const [productItem, setProductItem] = useState([]);
@@ -49,8 +50,8 @@ const AbayaAllProducts = () => {
                 const productsData = await getAllProduct(
                     language,
                     selectedCategory,
-                    "all",
-                    "",
+                    'all',
+                    '',
                     page,
                     showProduct
                 );
@@ -96,27 +97,28 @@ const AbayaAllProducts = () => {
     return (
         <div
             id="product-section"
-            className="mb-20 product-section"
+            className="product-section"
         >
-            <div className="product-area">
+            <div className="relative pb-20 product-area">
+                <Image
+                    src={ourProductsbg}
+                    alt="bg"
+                    className="absolute top-0 left-0 z-[-1] w-full h-full object-cover object-center"
+                />
                 <div className="container">
-                    <div className="flex justify-center md:mb-[70px] mb-6">
+                    <div className="flex justify-center md:mb-[70px] mb-6"></div>
+                    <div className="product-filter flex justify-between items-center mb-[30px]">
                         <h2 className="text-2xl font-semibold text-gray-800 capitalize md:text-4xl">
-                            {dictionary.Global.latestProduct}
+                            {dictionary.Global.ourProduct}
                         </h2>
-                    </div>
-                    <div className="product-filter items-start flex lg:items-center gap-4 sm:gap-5 mb-[30px]">
-                        <div className="flex items-center gap-2 mt-2 lg:mt-0 text-lg md:text-[20px] font-normal text-gray-800">
-                            <IoOptions />
-                        </div>
-                        <ul className="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-[18px]">
+                        <ul className="flex flex-wrap items-center gap-1 p-1 border border-gray-800 rounded-full sm:gap-3 md:gap-3">
                             <li>
                                 <button
                                     onClick={handleAllFilter}
                                     type="button"
-                                    className={`px-3 py-1 md:px-6 md:py-[6px] text-xs sm:text-base font-normal text-gray-700 border border-gray-700 rounded-md hover:bg-gray-700 hover:text-white transition duration-150 ${
+                                    className={`px-3 py-1 md:px-[30px] md:py-3 text-xs sm:text-base font-normal text-gray-800 rounded-full hover:bg-[linear-gradient(87deg,_#D14BF8_-6.96%,_#4C20CD_115.83%)] hover:text-white transition duration-150 ${
                                         selectedCategory == 'all'
-                                            ? 'bg-gray-700 text-white'
+                                            ? 'bg-[linear-gradient(87deg,_#D14BF8_-6.96%,_#4C20CD_115.83%)] text-white'
                                             : ''
                                     }`}
                                 >
@@ -130,9 +132,9 @@ const AbayaAllProducts = () => {
                                             handleCategory(category.slug)
                                         }
                                         type="button"
-                                        className={`px-3 py-1 md:px-6 md:py-[6px] text-xs sm:text-base font-normal text-gray-700 border border-gray-700 rounded-md hover:bg-gray-700 hover:text-white transition duration-150 ${
+                                        className={`px-3 py-1 md:px-[30px] md:py-3 text-xs sm:text-base font-normal text-gray-800 rounded-full hover:bg-[linear-gradient(87deg,_#D14BF8_-6.96%,_#4C20CD_115.83%)] hover:text-white transition duration-150 ${
                                             selectedCategory == category.slug
-                                                ? 'bg-gray-700 text-white'
+                                                ? 'bg-[linear-gradient(87deg,_#D14BF8_-6.96%,_#4C20CD_115.83%)] text-white'
                                                 : ''
                                         }`}
                                     >
@@ -153,7 +155,7 @@ const AbayaAllProducts = () => {
                         ) : memoizedProductsArray.length > 0 ? (
                             <div className="product-list grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-[30px]">
                                 {memoizedProductsArray.map((product) => (
-                                    <AbayaProductCard
+                                    <ProductCardThree
                                         key={product.id}
                                         product={product}
                                     />
@@ -188,7 +190,7 @@ const AbayaAllProducts = () => {
                     <div className="flex justify-center md:pt-[70px] mt-6">
                         <Link
                             href={`/collections/${selectedCategory}`}
-                            className="text-base md:text-[20px] text-gray-900 font-normal border-2 border-gray-900 px-6 py-3 rounded-lg md:px-[30px] md:py-4 hover:bg-gray-900 hover:text-white transition duration-150"
+                            className="text-base md:text-[20px] text-white font-normal px-6 py-[10px] md:px-[30px] md:py-4 transition duration-150 rounded-full bg-[linear-gradient(87deg,_#D14BF8_-6.96%,_#4C20CD_115.83%)]"
                         >
                             {loading ? 'Loading...' : dictionary.Global.seeMore}
                         </Link>
@@ -199,4 +201,4 @@ const AbayaAllProducts = () => {
     );
 };
 
-export default AbayaAllProducts;
+export default ProductListThree;

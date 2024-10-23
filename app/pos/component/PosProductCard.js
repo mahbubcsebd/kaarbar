@@ -31,7 +31,7 @@ const PosProductCard = ({ product }) => {
 
     const { state, dispatch } = usePos();
     const isInCart = state.posCartItems.some(
-        (item) => item.product_name_with_attr === product.product_name_with_attr
+        (item) => item.barcode_or_sku_code === product.barcode_or_sku_code
     );
 
     const selectedProduct = { ...product, quantity: 1 };
@@ -41,15 +41,15 @@ const PosProductCard = ({ product }) => {
         // Check if the product is already in the cart
         const productInCart = state.posCartItems.find(
             (item) =>
-                item.product_name_with_attr === product.product_name_with_attr
+                item.barcode_or_sku_code === product.barcode_or_sku_code
         );
 
         if (productInCart) {
             // Increment the quantity of the existing product
             const updatedCartItems = state.posCartItems.map((item) => {
                 if (
-                    item.product_name_with_attr ===
-                    product.product_name_with_attr
+                    item.barcode_or_sku_code ===
+                    product.barcode_or_sku_code
                 ) {
                     return { ...item, quantity: item.quantity + 1 };
                 }
@@ -74,7 +74,8 @@ const PosProductCard = ({ product }) => {
     return (
         <div className="h-full overflow-hidden bg-white rounded-lg product-card">
             <button
-                onClick={() => handleAddToCart(product_name_with_attr)}
+                onClick={() => handleAddToCart(barcode_or_sku_code)}
+                disabled={quantity <= 0}
                 className="block w-full h-[122px] rounded-tl-lg rounded-tr-md
                         overflow-hidden relative cursor-pointer"
             >
@@ -97,13 +98,15 @@ const PosProductCard = ({ product }) => {
             </button>
             <div className="product-content p-[6px] bg-white">
                 <button
-                    onClick={handleAddToCart}
+                    onClick={() => handleAddToCart(barcode_or_sku_code)}
+                    disabled={quantity <= 0}
                     className="block mb-1 text-xs font-medium text-gray-900 text-[8px] product-title ellipsis-2 text-left"
                 >
                     {product_name_with_attr}
                 </button>
                 <p className="product-price text-[8px] font-semibold text-gray-900">
-                    {priceCurrency} : {sale_price === 0 ? unit_price : sale_price}
+                    {priceCurrency} :{' '}
+                    {sale_price === 0 ? unit_price : sale_price}
                 </p>
             </div>
         </div>

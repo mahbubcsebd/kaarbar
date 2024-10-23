@@ -18,7 +18,7 @@ const HeroSlider = ({images}) => {
     return (
         <div
             id="hero"
-            className="hero pb-[30px] lg:pb-10"
+            className="hero"
         >
             <div className="hero-area">
                     <div className="w-full h-[160px] md:h-[350px] overflow-hidden">
